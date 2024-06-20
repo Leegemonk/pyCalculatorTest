@@ -1,0 +1,45 @@
+name: Calculator testing
+on:
+    push:
+      branches: [main]
+jobs:
+  build:
+
+    name: Build my virtual OS
+  
+    runs-on: Ubuntu-latest
+  
+    steps:
+  
+      - name: Checkout private repo remotely
+        uses: actions/checkout@v2
+        
+      - name: Show files
+        run: |
+          ls
+          pwd
+          cp test_calculator.py /home/runner/work/
+
+      - name: calculator testing
+        uses: actions/checkout@v2
+        with:
+          repository: 64minutes/SQA_calculator_script
+
+      - name: Show files
+        run: |
+          ls
+          mv /home/runner/work/calculator.py .
+          pwd
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.8"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - name: Test with Pytest
+        run: |
+          pytest test_calculator.py
