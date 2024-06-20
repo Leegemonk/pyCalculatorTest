@@ -28,8 +28,8 @@ jobs:
       - name: Show files
         run: |
           ls
-          mv /home/runner/work/calculator.py .
           pwd
+          mv /home/runner/work/calculator.py .
 
       - name: Set up Python 3.8
         uses: actions/setup-python@v3
