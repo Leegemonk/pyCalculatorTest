@@ -1,45 +1,52 @@
-name: Calculator testing
+name: Simple Start Up
 on:
     push:
-      branches: [main]
+        branches: [main]
+
 jobs:
-  build:
+    build:
 
-    name: Build my virtual OS
-  
-    runs-on: Ubuntu-latest
-  
-    steps:
-  
-      - name: Checkout private repo remotely
-        uses: actions/checkout@v2
+        name: Build my virtual OS
         
-      - name: Show files
-        run: |
-          ls
-          pwd
-          cp test_calculator.py /home/runner/work/pyCalculatorTest/pyCalculatorTest/ .s
+        runs-on: Ubuntu-latest
 
-      - name: calculator testing
-        uses: actions/checkout@v2
-        with:
-          repository: 64minutes/SQA_calculator_script
+        steps:
 
-      - name: Show files
-        run: |
-          ls
-          pwd
-          mv test_calculator.py /home/runner/work/pyCalculatorTest/pyCalculatorTest/ .
 
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.8"
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pytest
+        - name: Retrieve calculator function from 2nd repo
+          uses: actions/checkout@v2
+          with:
+            repository: 64minutes/SQA_calculator_script
 
-      - name: Test with Pytest
-        run: |
-          pytest test_calculator.py
+        - name: show and retrieve files of test case script
+          run: |
+            ls
+            cp calculator.py /home/runner/work
+        
+        - name: checkout my codes
+          uses: actions/checkout@v2
+
+        - name: Retrieve repo
+          run: |
+            ls
+            mv /home/runner/work/calculator.py .
+
+        - name: Set up Python 3.8
+          uses: actions/setup-python@v3
+          with:
+              python-version: "3.8"
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install pytest
+  
+        - name: Test with Pytest
+          run: |
+            pytest test_cal.py
+        
+        - name: Create a Release
+          uses: elgohr/Github-Release-Action@v5
+          env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with: 
+            title: NP SFA SQA Run 3 graduation exercise.
