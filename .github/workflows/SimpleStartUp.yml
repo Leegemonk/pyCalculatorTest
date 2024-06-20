@@ -29,7 +29,7 @@ jobs:
         run: |
           ls
           pwd
-          mv /home/runner/work/pyCalculatorTest/pyCalculatorTest .
+          mv /home/runner/work/pyCalculatorTest/pyCalculatorTest/test_calculator.py .
 
       - name: Set up Python 3.8
         uses: actions/setup-python@v3
